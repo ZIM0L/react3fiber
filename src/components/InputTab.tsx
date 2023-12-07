@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector} from "../hooks/hooks";
-import { addBox } from "../redux/ShapeCreator";
+import { addShape } from "../redux/ShapeCreator";
 import {  updatePosition } from "../redux/InputData";
 
 function InputTab() {
@@ -8,7 +8,7 @@ function InputTab() {
   const inputData = useAppSelector((state) => state.Input);
 
   const handleAddBox = () => {
-    dispatch(addBox(inputData));
+    dispatch(addShape(inputData));
   };
 
   const handleInputChange = (value : number, field : string) => {

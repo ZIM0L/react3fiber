@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Sphere, Box, Wireframe, Cylinder, OrbitControls,  Environment } from "@react-three/drei";
-import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch } from "../hooks/hooks";
 import { updateSelected } from "../redux/InputData";
 import { useState } from "react";
 

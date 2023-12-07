@@ -1,19 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export const counterSlice = createSlice({
-  name: 'shapes',
-  initialState: {
-    storedShapes: []
-  },
+interface ShapeInt {
+  position: number[];
+  rotation: number[];
+  color: number;
+  size: number[];
+  selected: string; // lub konkretne typy np. [number, number, number]
+  // inne właściwości kształtu
+}
+// typeof whats inside
+interface ShapesState {
+  storedShapes: ShapeInt[];
+}
+// init
+const initialState: ShapesState = {
+  storedShapes: [],
+};
+
+export const shapesSlice = createSlice({
+  name: "shapes",
+  initialState,
   reducers: {
-    addBox: (state, action) => {
-      state.storedShapes.push(action.payload)
+    addShape: (state, action: PayloadAction<ShapeInt>) => {
+      state.storedShapes.push(action.payload);
     },
-  }
-})
+  },
+});
 
-export const { addBox } = counterSlice.actions
+export const { addShape } = shapesSlice.actions;
 
-export default counterSlice.reducer
-
-// Redux State Slice (database)
+export default shapesSlice.reducer;

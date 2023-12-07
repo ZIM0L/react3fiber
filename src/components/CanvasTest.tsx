@@ -13,7 +13,7 @@ import {  useAppSelector } from "../hooks/hooks";
 
 
 const CanvasTest = () => {
-    const count = useAppSelector((state) => state.counter ) 
+    const count = useAppSelector((state) => state) 
     return(
     
     <Canvas style={{ position: "absolute" }} >

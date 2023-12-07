@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function CanvasWorking() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const shape = useAppSelector((state) => state.Shape);
+  const shape = useAppSelector((state) => state.Shape) ;
 
   const getShapeComponent = (shapeType : string) => {
     // console.log(shape.storedShapes)
@@ -37,7 +37,7 @@ function CanvasWorking() {
           >
             <Wireframe simplify={true} stroke={"#000000"} thickness={0.015} />
             <meshPhongMaterial color={hoveredIndex === key ? 0xaaff : 0xfffff} />
-            {box.selected !== "sphere" && <meshStandardMaterial args={[1, 1, 1]} />}
+            {box.selected !== "sphere" && <meshStandardMaterial  />}
           </ShapeComponent>
           );
         })}
