@@ -5,7 +5,7 @@ import CanvasWorking from "./components/CanvasWorking";
 // import { increment } from "./redux/counter";
 // import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 
-// import CanvasTest from "./components/CanvasTest";
+ import CanvasTest from "./components/CanvasTest";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <div className="w-full">
           <CanvasWorking />
         </div>
+        {/* <CanvasTest /> */}
       </div>
     </>
   );

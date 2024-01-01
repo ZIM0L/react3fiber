@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ShapeInt {
+export interface ShapeInt {
   position: number[];
   rotation: number[];
-  color: number;
+  color: string;
   size: number[];
-  selected: string; // lub konkretne typy np. [number, number, number]
+  selected: string ; // lub konkretne typy np. [number, number, number]
+  selectedToEdit: ShapeInt | null
   // inne właściwości kształtu
 }
 // typeof whats inside
@@ -24,9 +25,13 @@ export const shapesSlice = createSlice({
     addShape: (state, action: PayloadAction<ShapeInt>) => {
       state.storedShapes.push(action.payload);
     },
+    updateSelectedShapePosition: (state, action: PayloadAction<{ index: number, position: number[] }>) => {
+      const { index, position } = action.payload;
+      state.storedShapes[index].position = position;
+    },
   },
 });
 
-export const { addShape } = shapesSlice.actions;
+export const { addShape, updateSelectedShapePosition } = shapesSlice.actions;
 
 export default shapesSlice.reducer;

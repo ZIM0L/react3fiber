@@ -1,14 +1,15 @@
 import { Canvas } from "@react-three/fiber";
-import { Environment, Box, Sphere, Cylinder, Wireframe, OrbitControls } from "@react-three/drei";
-import { useAppSelector } from "../hooks/hooks";
+import { Box, Sphere, Cylinder, Wireframe, OrbitControls, Sky} from "@react-three/drei";
+import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { useState } from "react";
+import { updateSelectedToEdit, updatePosition } from "../redux/InputData";
 
 function CanvasWorking() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const shape = useAppSelector((state) => state.Shape) ;
+  const dispatch = useAppDispatch();
 
   const getShapeComponent = (shapeType : string) => {
-    // console.log(shape.storedShapes)
     switch (shapeType) {
       case "Box":
         return Box;
@@ -20,34 +21,40 @@ function CanvasWorking() {
         return Box; // Domyślny kształt
     }
   };
+  const handleInputChangePosition = (value: number[]) => {
+        dispatch(updatePosition(value))
+
+  }
 
   return (
     <>
       <Canvas id="CanvasMain">
         <OrbitControls />
-        {shape.storedShapes.map((box, key) => {
-          const ShapeComponent = getShapeComponent(box.selected);
+
+        {shape.storedShapes.map((shape, key) => {
+          const ShapeComponent = getShapeComponent(shape.selected);
           return (
             <ShapeComponent
             key={key}
             onPointerEnter={(event) => (event.stopPropagation(), setHoveredIndex(key))}
+            onClick={()=>(
+            handleInputChangePosition(shape.position),  
+            dispatch(updateSelectedToEdit(shape)),console.log(shape.position))
+            }
             onPointerOut={(event) => (event.stopPropagation(), setHoveredIndex(null))}
-            position={[box.position[0], box.position[1], box.position[2]]}
-            rotation={[0, 0, 0]}
+            position={[shape.position[0], shape.position[1], shape.position[2]]}
+            rotation={[shape.rotation[0], shape.rotation[1], shape.rotation[2]]}
           >
             <Wireframe simplify={true} stroke={"#000000"} thickness={0.015} />
-            <meshPhongMaterial color={hoveredIndex === key ? 0xaaff : 0xfffff} />
-            {box.selected !== "sphere" && <meshStandardMaterial  />}
+            <meshPhongMaterial  color={hoveredIndex == key ? 0xaaffff : shape.color} />
+           
           </ShapeComponent>
           );
         })}
-        <ambientLight intensity={2} />
-        <Environment background near={1} far={1000} resolution={256}>
-          <mesh scale={50}>
-            <sphereGeometry args={[1, 64, 64]} />
-            <meshBasicMaterial color={0x000000} side={1} />
-          </mesh>
-        </Environment>
+
+        
+        <ambientLight intensity={3} />
+        <Sky distance={450000} sunPosition={[0, 2, 0]} inclination={4} azimuth={10} />
       </Canvas>
     </>
   );

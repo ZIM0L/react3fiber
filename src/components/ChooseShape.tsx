@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { Sphere, Box, Wireframe, Cylinder, OrbitControls,  Environment } from "@react-three/drei";
+import { Sphere, Box, Wireframe, Cylinder, Environment } from "@react-three/drei";
 import { useAppDispatch } from "../hooks/hooks";
 import { updateSelected } from "../redux/InputData";
 import { useState } from "react";
@@ -27,7 +27,7 @@ function ChooseShape() {
     default:
       break;
    }
-   setWhatsHovered
+
     }
 
   return (
@@ -41,7 +41,7 @@ function ChooseShape() {
           onPointerEnter={(event)=> (event.stopPropagation())}
         >
             <Wireframe simplify={true}  stroke={"#000000"}  thickness={0.015} />
-          <meshPhongMaterial color={0xfffff}/>
+          <meshPhongMaterial color={0xffffff}/>
         </Box>
         <ambientLight intensity={2} />
         <Environment background near={1} far={1000} resolution={256}>
@@ -51,19 +51,20 @@ function ChooseShape() {
           </mesh>
         </Environment>
       </Canvas>
-      <button onClick={() => handleInputChange("Box")} className={`text-white bg-slate-600 p-2 ${whatsHovered[0] && "bg-red-700"}`}>Select Box</button>
+      <button onClick={() => handleInputChange("Box")} className={`text-white  p-2 ${whatsHovered[0] ? "bg-red-700" : "bg-slate-600"}`}>Select Box</button>
       </div>
       
       <div>
       <Canvas>
-        <OrbitControls />
+     
         <Cylinder
-          position={[0,0,3.5]}
+          position={[0,0.1,3]}
           args={[1,1,1]} // Width, height, depth. Default is [1, 1, 1]
+          rotation={[0.5,-0.5,0]}
           
         >
             <Wireframe simplify={true}  stroke={"#000000"}  thickness={0.015} />
-          <meshPhongMaterial color={0xfffff}/>
+          <meshPhongMaterial color={0xffffff}/>
         </Cylinder>
         <ambientLight intensity={2} />
         <Environment background near={1} far={1000} resolution={256}>
@@ -73,17 +74,16 @@ function ChooseShape() {
           </mesh>
         </Environment>
       </Canvas>
-      <button onClick={() => handleInputChange("Cylinder")} className={`text-white bg-slate-600 p-2 ${whatsHovered[1] && "bg-red-700"}`}>Select Cylinder</button>
+      <button onClick={() => handleInputChange("Cylinder")} className={`text-white  p-2 ${whatsHovered[1] ? "bg-red-700" : "bg-slate-600"}`}>Select Cylinder</button>
       </div>
 
       <div>
-      <Canvas>
-        <OrbitControls />
+      <Canvas>+
         <Sphere
-          position={[0,0,3.5]}          
+          position={[0,0,3.2]}   
         >
             <Wireframe simplify={true}  stroke={"#000000"}  thickness={0.015} />
-          <meshPhongMaterial color={0xfffff}/>
+          <meshPhongMaterial color={0xffffff}/>
         </Sphere>
         <ambientLight intensity={2} />
         <Environment background near={1} far={1000} resolution={256}>
@@ -93,7 +93,7 @@ function ChooseShape() {
           </mesh>
         </Environment>
       </Canvas>
-      <button onClick={() => handleInputChange("Sphere")} className={`text-white bg-slate-600 p-2 ${whatsHovered[2] && "bg-red-700"}`}>Select Sphere</button>
+      <button onClick={() => handleInputChange("Sphere")} className={`text-white  p-2 ${whatsHovered[2] ? "bg-red-700" : "bg-slate-600"}`}>Select Sphere</button>
       </div>
 
 
